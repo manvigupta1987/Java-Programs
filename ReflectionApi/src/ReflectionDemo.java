@@ -21,4 +21,8 @@ public class ReflectionDemo {
     private void method3() {
         System.out.println("Private method invoked");
     }
+    
+    public boolean CheckInstance(Object obj, String s) throws ClassNotFoundException {
+    	return Class.forName(s).isInstance(obj);
+    }
 }
