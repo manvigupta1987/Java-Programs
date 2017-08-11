@@ -9,5 +9,4 @@ public class BridgeDesignPatterndemo {
 		Shape greenSquare = new Sqaure(new GreenColor());
 		greenSquare.drawShape();
 	}
-
 }
