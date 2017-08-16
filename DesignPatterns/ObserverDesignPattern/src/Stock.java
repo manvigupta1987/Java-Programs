@@ -1,5 +1,6 @@
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public abstract class Stock implements Observable {
@@ -7,7 +8,7 @@ public abstract class Stock implements Observable {
 	private String stockName;
 	private double stockPrice;
 	
-	private List<WeakReference<Observer>> observerList; 
+	private List<WeakReference<Observer>> observerList;
 	//Used weak reference to avoid memory leak (happens when unregister function is not called). 
 	
 	public Stock() {
@@ -34,6 +35,7 @@ public abstract class Stock implements Observable {
 	public void registerObserver(Observer observer) {
 		if(observer != null) {
 			observerList.add(new WeakReference<Observer>(observer));
+			//observerList.add((observer));
 		}
 	}
 	
@@ -51,9 +53,15 @@ public abstract class Stock implements Observable {
 	
 	@Override
 	public void unregisterObserver(Observer observer) {
-		if(observer!= null) {
-			observerList.remove(observer);
-		}
+		Iterator<WeakReference<Observer>> iterator = observerList.iterator();
+		   while(iterator.hasNext())
+		    { 
+		        WeakReference<Observer> weakRef = iterator.next();
+		        if (weakRef.get() == observer)
+		        { 
+		            iterator.remove();
+		        } 
+		    } 
 	}
 	
 	public void updateStockPrice(double price) {

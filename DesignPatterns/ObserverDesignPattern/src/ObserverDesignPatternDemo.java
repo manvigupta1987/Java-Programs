@@ -33,9 +33,14 @@ public class ObserverDesignPatternDemo {
 		
 		for(int i = 0; i< 5 ; i++) {
 		
+			apple.updateStockPrice((int)(Math.random()*101)+1);
 			ibm.updateStockPrice((int)(Math.random()*101)+1);
 			microSoft.updateStockPrice((int)(Math.random()*101)+1);
-			apple.updateStockPrice((int)(Math.random()*101)+1);
-		}		
+		}
+		
+		apple.unregisterObserver(mobile);
+		apple.updateStockPrice((int)(Math.random()*101)+1);
+		
+		
 	}
 }
